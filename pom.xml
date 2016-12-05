@@ -3,11 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.ruck</groupId>
     <artifactId>prefsfx</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     
     <description>PrefsFX API - to support binding JavaFX Properties to Preferences.</description>
     <url>https://github.com/ruckc/prefsfx</url>
+    
+    <licenses>
+        <license>
+            <distribution>repo</distribution>
+            <name>apache-2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
     
     <developers>
         <developer>
@@ -15,8 +23,17 @@
             <name>Curtis W. Ruck</name>
             <organization>ruck.io</organization>
             <url>https://github.com/ruckc</url>
+            <timezone>EST5EDT</timezone>
         </developer>
     </developers>
+    
+    <distributionManagement>
+        <repository>
+            <id>bintray-ruckc-maven</id>
+            <name>ruckc-maven</name>
+            <url>https://api.bintray.com/maven/ruckc/maven/jgrok/;publish=1</url>
+        </repository>
+    </distributionManagement>
     
     <issueManagement>
         <url>https://github.com/ruckc/prefsfx/issues</url>
@@ -27,6 +44,7 @@
         <url>https://github.com/ruckc/prefsfx</url>
         <connection>scm:git:git://github.com/ruckc/prefsfx.git</connection>
         <developerConnection>scm:git:git@github.com:ruckc/prefsfx.git</developerConnection>
+        <tag>prefsfx-1.0.0</tag>
     </scm>
     
     <dependencies>
@@ -171,6 +189,15 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
             </plugin>
         </plugins>
         <pluginManagement>
