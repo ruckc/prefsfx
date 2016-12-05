@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.ruck</groupId>
     <artifactId>prefsfx</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
     
     <description>PrefsFX API - to support binding JavaFX Properties to Preferences.</description>
@@ -44,7 +44,7 @@
         <url>https://github.com/ruckc/prefsfx</url>
         <connection>scm:git:git://github.com/ruckc/prefsfx.git</connection>
         <developerConnection>scm:git:git@github.com:ruckc/prefsfx.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>prefsfx-1.0.2</tag>
     </scm>
     
     <dependencies>
