@@ -15,10 +15,6 @@
  */
 package io.ruck.prefsfx;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
@@ -36,82 +32,74 @@ import javafx.beans.property.SimpleLongProperty;
  */
 public final class PreferencePropertyFactory {
 
-    private static final Logger LOG = Logger.getLogger(PreferencePropertyFactory.class.getName());
-
+    /**
+     * Unused "locked" constructor.
+     */
     private PreferencePropertyFactory() {
     }
 
-    public static BooleanProperty newBooleanProperty(String valuename, boolean def) {
-        Preferences preferences = getPreferences();
-
+    /**
+     *
+     * @param valuename to bind property value to
+     * @param def default value if not in Preferences
+     * @return a new SimpleBooleanProperty
+     */
+    public static BooleanProperty newBooleanProperty(final String valuename,
+            final boolean def) {
         SimpleBooleanProperty prop = new SimpleBooleanProperty();
-        prop.set(preferences.getBoolean(valuename, def));
-        prop.addListener((o, ov, nv) -> {
-            preferences.putBoolean(valuename, nv);
-            flush(preferences);
-        });
+        PreferencePropertyBinder.bind(prop, valuename, def);
         return prop;
     }
 
-    public static DoubleProperty newDoubleProperty(String valuename, double def) {
-        Preferences preferences = getPreferences();
-
+    /**
+     *
+     * @param valuename to bind property value to
+     * @param def default value if not in Preferences
+     * @return a new SimpleBooleanProperty
+     */
+    public static DoubleProperty newDoubleProperty(final String valuename,
+            final double def) {
         SimpleDoubleProperty prop = new SimpleDoubleProperty();
-        prop.set(preferences.getDouble(valuename, def));
-        prop.addListener((o, ov, nv) -> {
-            preferences.putDouble(valuename, nv.doubleValue());
-            flush(preferences);
-        });
+        PreferencePropertyBinder.bind(prop, valuename, def);
         return prop;
     }
 
-    public static FloatProperty newFloatProperty(String valuename, float def) {
-        Preferences preferences = getPreferences();
-
+    /**
+     *
+     * @param valuename to bind property value to
+     * @param def default value if not in Preferences
+     * @return a new SimpleBooleanProperty
+     */
+    public static FloatProperty newFloatProperty(final String valuename,
+            final float def) {
         SimpleFloatProperty prop = new SimpleFloatProperty();
-        prop.set(preferences.getFloat(valuename, def));
-        prop.addListener((o, ov, nv) -> {
-            preferences.putFloat(valuename, nv.floatValue());
-            flush(preferences);
-        });
+        PreferencePropertyBinder.bind(prop, valuename, def);
         return prop;
     }
 
-    public static IntegerProperty newIntegerProperty(String valuename, int def) {
-        Preferences preferences = getPreferences();
-
+    /**
+     *
+     * @param valuename to bind property value to
+     * @param def default value if not in Preferences
+     * @return a new SimpleBooleanProperty
+     */
+    public static IntegerProperty newIntegerProperty(final String valuename,
+            final int def) {
         SimpleIntegerProperty prop = new SimpleIntegerProperty();
-        prop.set(preferences.getInt(valuename, def));
-        prop.addListener((o, ov, nv) -> {
-            preferences.putInt(valuename, nv.intValue());
-            flush(preferences);
-        });
+        PreferencePropertyBinder.bind(prop, valuename, def);
         return prop;
     }
 
-    public static LongProperty newLongProperty(String valuename, long def) {
-        Preferences preferences = getPreferences();
-
+    /**
+     *
+     * @param valuename to bind property value to
+     * @param def default value if not in Preferences
+     * @return a new SimpleBooleanProperty
+     */
+    public static LongProperty newLongProperty(final String valuename,
+            final long def) {
         SimpleLongProperty prop = new SimpleLongProperty();
-        prop.set(preferences.getLong(valuename, def));
-        prop.addListener((o, ov, nv) -> {
-            preferences.putLong(valuename, nv.longValue());
-            flush(preferences);
-        });
+        PreferencePropertyBinder.bind(prop, valuename, def);
         return prop;
-    }
-
-    private static Preferences getPreferences() {
-        Class<?> caller = StackTraceHelper.getCallerClass();
-        PreferenceContext context = PreferenceContext.getContext(caller.getName());
-        return context.getPreferences();
-    }
-
-    private static void flush(Preferences p) {
-        try {
-            p.flush();
-        } catch (BackingStoreException ex) {
-            LOG.log(Level.WARNING, ex.getMessage(), ex);
-        }
     }
 }

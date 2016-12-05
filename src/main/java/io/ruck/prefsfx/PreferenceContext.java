@@ -15,6 +15,7 @@
  */
 package io.ruck.prefsfx;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -25,24 +26,52 @@ import java.util.prefs.Preferences;
  *
  * @author ruckc
  */
-public class PreferenceContext {
+public final class PreferenceContext {
 
-    private static final Logger LOG = Logger.getLogger(PreferenceContext.class.getName());
+    /**
+     * Logger.
+     */
+    private static final Logger LOG = Logger.getLogger(
+            PreferenceContext.class.getName());
 
-    private static final Map<String, PreferenceContext> CONTEXTS = new ConcurrentHashMap<>();
+    /**
+     * Static cache of PreferenceContext.
+     */
+    private static final Map<String, PreferenceContext> CONTEXTS
+            = new ConcurrentHashMap<>();
 
+    /**
+     * Preferences instance.
+     */
     private final Preferences preferences;
 
-    private PreferenceContext(String name) {
-        LOG.log(Level.FINE, "Creating {0} for {1}", new Object[]{getClass().getName(), name});
+    /**
+     * Constructor.
+     *
+     * @param name of the Preferences.
+     */
+    private PreferenceContext(final String name) {
+        LOG.log(Level.FINE, "Creating {0} for {1}",
+                new Object[]{getClass().getName().replaceAll("\n", "\\n"),
+                    name.replaceAll("\n", "\\n")});
         preferences = Preferences.userRoot().node(name);
     }
 
+    /**
+     * @return the Preferences object in this Context
+     */
     public Preferences getPreferences() {
         return preferences;
     }
 
-    public static PreferenceContext getContext(String name) {
-        return CONTEXTS.computeIfAbsent(name.toLowerCase(), PreferenceContext::new);
+    /**
+     *
+     * @param name the Preferences name
+     * @return the new or existing PreferenceContext associated with the @param
+     * name
+     */
+    public static PreferenceContext getContext(final String name) {
+        return CONTEXTS.computeIfAbsent(name.toLowerCase(Locale.getDefault()),
+                PreferenceContext::new);
     }
 }

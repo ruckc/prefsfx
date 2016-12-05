@@ -21,6 +21,18 @@ package io.ruck.prefsfx;
  */
 public final class StackTraceHelper {
 
+    /**
+     * Unused "locked" constructor.
+     */
+    private StackTraceHelper() {
+    }
+
+    /**
+     * Get the first class found in the Thread's current stack trace that isn't
+     * in StackTraceHelper's package.
+     *
+     * @return caller class
+     */
     public static Class<?> getCallerClass() {
         StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
         for (int i = 1; i < stElements.length; i++) {
