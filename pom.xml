@@ -6,6 +6,7 @@
     <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     
+    <name>prefsfx</name>
     <description>PrefsFX API - to support binding JavaFX Properties to Preferences.</description>
     <url>https://github.com/ruckc/prefsfx</url>
     
